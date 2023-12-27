@@ -1,35 +1,28 @@
 import { render, screen } from "@testing-library/react";
 import TodoList from "./index.jsx";
+import { TodoContext } from "@context/todoContext";
 
-const _todoMock = [
+const _mock = [
     {
         id: "1",
         text: "Todo 1",
         status: "active",
     },
-    {
-        id: "2",
-        text: "Todo 2",
-        status: "active",
-    },
-    {
-        id: "3",
-        text: "Todo 3",
-        status: "active",
-    },
-    {
-        id: "4",
-        text: "Todo 4",
-        status: "active",
-    },
-    {
-        id: "5",
-        text: "Todo 5",
-        status: "active",
-    },
 ];
-test("render list", () => {
-    render(<TodoList todos={_todoMock} />);
-    const todosElement = screen.getAllByRole("listitem");
-    expect(todosElement).toHaveLength(_todoMock.length);
+
+describe("TodoList", () => {
+    test("render list", () => {
+        render(
+            <TodoContext.Provider
+                value={{
+                    state: _mock,
+                    dispatch: jest.fn(),
+                }}
+            >
+                <TodoList />
+            </TodoContext.Provider>,
+        );
+        const todosElement = screen.queryAllByRole("listitem");
+        expect(todosElement).toHaveLength(_mock.length);
+    });
 });

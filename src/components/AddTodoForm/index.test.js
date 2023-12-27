@@ -1,12 +1,25 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import AddTodoForm from "./index.jsx";
-import React from "react";
+import React, { useContext } from "react";
+import {
+    TodoContext,
+    TodoContextProvider,
+} from "../../context/todoContext.jsx";
 
-const onAdd = jest.fn();
+const TestContextComponent = () => {
+    const { state } = useContext(TodoContext);
+    return <p data-testid="todo-length">{state.length}</p>;
+};
+const renderComponent = () => (
+    <TodoContextProvider>
+        <AddTodoForm />
+        <TestContextComponent />
+    </TodoContextProvider>
+);
 
 describe("AddTodoForm", () => {
     test("render", () => {
-        render(<AddTodoForm onAdd={onAdd} />);
+        render(renderComponent());
         const inputElement = screen.getByPlaceholderText(
             "Add new todo here...",
         );
@@ -15,7 +28,7 @@ describe("AddTodoForm", () => {
     });
 
     test("add todo", async () => {
-        render(<AddTodoForm onAdd={onAdd} />);
+        render(renderComponent());
         const inputElement = screen.getByPlaceholderText(
             "Add new todo here...",
         );
@@ -23,20 +36,14 @@ describe("AddTodoForm", () => {
 
         fireEvent.change(inputElement, { target: { value: "Todo 1" } });
         expect(inputElement).toHaveValue("Todo 1");
-
         fireEvent.click(addButton);
-        expect(onAdd).toHaveBeenCalledTimes(1);
-        expect(onAdd).toHaveBeenCalledWith(
-            expect.objectContaining({
-                id: expect.any(String),
-                text: "Todo 1",
-                status: "active",
-            }),
-        );
+
+        const todoLengthElement = screen.getByTestId("todo-length");
+        expect(todoLengthElement).toHaveTextContent("1");
     });
 
     test("empty string", () => {
-        render(<AddTodoForm onAdd={onAdd} />);
+        render(renderComponent());
         const formElement = screen.getByLabelText("add todo");
         const inputElement = screen.getByPlaceholderText(
             "Add new todo here...",
@@ -45,6 +52,7 @@ describe("AddTodoForm", () => {
         fireEvent.change(inputElement, { target: { value: "" } });
         fireEvent.submit(formElement);
 
-        expect(onAdd).not.toHaveBeenCalled();
+        const todoLengthElement = screen.getByTestId("todo-length");
+        expect(todoLengthElement).toHaveTextContent("0");
     });
 });

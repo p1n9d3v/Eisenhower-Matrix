@@ -1,14 +1,19 @@
-import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useContext, useState } from "react";
+import { TodoContext } from "@context/todoContext";
 
-function TodoForm({ onAdd }) {
+function TodoForm() {
     const [text, setText] = useState("");
+    const { dispatch } = useContext(TodoContext);
 
     const onSubmit = (e) => {
         e.preventDefault();
         const trimText = text.trim();
         if (!trimText) return;
-        onAdd({ id: uuidv4(), text: trimText, status: "active" });
+
+        dispatch({
+            type: "ADD",
+            text: trimText,
+        });
         setText("");
     };
 

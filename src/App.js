@@ -1,6 +1,7 @@
+import TodoForm from "@components/AddTodoForm";
+import TodoList from "@components/TodoList";
+import { TodoContextProvider } from "@context/todoContext";
 import { useState } from "react";
-import TodoForm from "./components/AddTodoForm";
-import TodoList from "./components/TodoList";
 
 function App() {
     const [todos, setTodos] = useState([]);
@@ -10,10 +11,12 @@ function App() {
     };
 
     return (
-        <div className="App">
-            <TodoList todos={todos} />
-            <TodoForm onAdd={onAdd} />
-        </div>
+        <TodoContextProvider>
+            <div className="App">
+                <TodoList todos={todos} />
+                <TodoForm onAdd={onAdd} />
+            </div>
+        </TodoContextProvider>
     );
 }
 

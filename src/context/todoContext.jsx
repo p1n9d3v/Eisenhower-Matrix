@@ -5,7 +5,7 @@ export const TodoContext = createContext();
 
 export const TodoContextProvider = ({ children }) => {
     const reducer = (state, action) => {
-        const { text, status } = action;
+        const { text, id } = action;
         switch (action.type) {
             case "ADD": {
                 return [
@@ -13,16 +13,16 @@ export const TodoContextProvider = ({ children }) => {
                     {
                         id: uuidv4(),
                         text,
-                        status,
+                        status: TODO_STATUS.activate,
                     },
                 ];
             }
             case "DELETE": {
-                return state.filter((todo) => todo.id !== action.id);
+                return state.filter((todo) => todo.id !== id);
             }
             case "UPDATE": {
                 return state.map((todo) => {
-                    if (todo.id === action.id) {
+                    if (todo.id === id) {
                         return {
                             ...todo,
                             status: todo.status

@@ -10,7 +10,7 @@ const TestContextComponent = () => {
     const { state } = useContext(TodoContext);
     return <p data-testid="todo-length">{state.length}</p>;
 };
-const renderComponent = () => (
+const RenderComponent = () => (
     <TodoContextProvider>
         <AddTodoForm />
         <TestContextComponent />
@@ -19,7 +19,7 @@ const renderComponent = () => (
 
 describe("AddTodoForm", () => {
     test("render", () => {
-        render(renderComponent());
+        render(RenderComponent());
         const inputElement = screen.getByPlaceholderText(
             "Add new todo here...",
         );
@@ -28,7 +28,7 @@ describe("AddTodoForm", () => {
     });
 
     test("add todo", async () => {
-        render(renderComponent());
+        render(RenderComponent());
         const inputElement = screen.getByPlaceholderText(
             "Add new todo here...",
         );
@@ -43,7 +43,7 @@ describe("AddTodoForm", () => {
     });
 
     test("empty string", () => {
-        render(renderComponent());
+        render(RenderComponent());
         const formElement = screen.getByLabelText("add todo");
         const inputElement = screen.getByPlaceholderText(
             "Add new todo here...",

@@ -1,0 +1,52 @@
+import TodoItem from ".";
+import { TodoContext } from "../../context/todoContext";
+import { v4 as uuidv4 } from "uuid";
+import { TODO_STATUS } from "../../constants";
+import { fireEvent, render, screen } from "@testing-library/react";
+
+describe("TodoItem", () => {
+    const mockDispatch = jest.fn();
+    const mockTodo = {
+        id: uuidv4(),
+        text: "Todo 1",
+        status: TODO_STATUS.activate,
+    };
+
+    const renderComponent = () =>
+        render(
+            <TodoContext.Provider
+                value={{
+                    state: [mockTodo],
+                    dispatch: mockDispatch,
+                }}
+            >
+                <TodoItem todo={mockTodo} />
+            </TodoContext.Provider>,
+        );
+
+    test("render", () => {
+        renderComponent();
+        expect(screen.getByLabelText("todo item")).toBeInTheDocument();
+        expect(screen.getByText("Todo 1")).toBeInTheDocument();
+    });
+
+    test("toggle todo", () => {
+        renderComponent();
+        const checkbox = screen.getByRole("checkbox");
+        fireEvent.click(checkbox);
+        expect(mockDispatch).toHaveBeenCalledWith({
+            type: "UPDATE",
+            id: mockTodo.id,
+        });
+    });
+
+    test("delete todo", () => {
+        renderComponent();
+        const deleteButton = screen.getByRole("button");
+        fireEvent.click(deleteButton);
+        expect(mockDispatch).toHaveBeenCalledWith({
+            type: "DELETE",
+            id: mockTodo.id,
+        });
+    });
+});

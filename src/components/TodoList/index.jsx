@@ -1,6 +1,5 @@
 import { useState } from "react";
 function TodoList({ todos }) {
-    console.log(todos);
     return (
         <section>
             <ul>

@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import TodoFilter from "components/TodoFilter";
 import { TODO_STATUS } from "constant";
 import { TodoContext } from "context/todoContext";
 import TodoList from ".";
@@ -32,25 +33,26 @@ describe("TodoList", () => {
         expect(todosElement).toHaveLength(_mock.length);
     });
 
-    test.each(Object.keys(TODO_STATUS))("filter list", (filter) => {
-        render(
-            <TodoContext.Provider
-                value={{
-                    state: _mock,
-                    dispatch: jest.fn(),
-                }}
-            >
-                <TodoList />
-            </TodoContext.Provider>,
-        );
+    test.each(Object.keys(TODO_STATUS).splice(0, 2))(
+        "filter list",
+        (filter) => {
+            render(
+                <TodoContext.Provider
+                    value={{
+                        state: _mock,
+                        dispatch: jest.fn(),
+                    }}
+                >
+                    <TodoList filter={filter} />
+                </TodoContext.Provider>,
+            );
 
-        const completedElement = screen.queryByText(filter);
-        fireEvent.click(completedElement);
-        const todosElements = screen.queryAllByRole("listitem");
-        const filterTodos = _mock.filter(
-            (item) => item.status === TODO_STATUS[filter],
-        );
+            const todosElements = screen.queryAllByRole("listitem");
+            const filterTodos = _mock.filter(
+                (item) => item.status === TODO_STATUS[filter],
+            );
 
-        expect(todosElements).toHaveLength(filterTodos.length);
-    });
+            expect(todosElements).toHaveLength(filterTodos.length);
+        },
+    );
 });

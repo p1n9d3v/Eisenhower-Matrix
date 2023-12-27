@@ -8,6 +8,7 @@ module.exports = {
             "@context": path.resolve(__dirname, "src/context"),
             "@constants": path.resolve(__dirname, "src/constants"),
             "@hooks": path.resolve(__dirname, "src/hooks"),
+            "@reducers": path.resolve(__dirname, "src/reducers"),
         },
     },
     jest: {
@@ -17,6 +18,7 @@ module.exports = {
                 "^@context/(.*)$": "<rootDir>/src/context/$1",
                 "^@hooks/(.*)$": "<rootDir>/src/hooks/$1",
                 "^@constants/(.*)$": "<rootDir>/src/constants/$1",
+                "^@reducers/(.*)$": "<rootDir>/src/reducers/$1",
             },
         },
     },

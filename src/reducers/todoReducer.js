@@ -1,4 +1,4 @@
-import { TODO_STATUS } from "@constants";
+import { TODO_STATUS } from "constant";
 import { v4 as uuidv4 } from "uuid";
 
 export const todoReducer = (state, action) => {

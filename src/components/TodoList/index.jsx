@@ -1,6 +1,6 @@
+import TodoItem from "components/TodoItem";
+import { TodoContext } from "context/todoContext";
 import { useContext } from "react";
-import { TodoContext } from "@context/todoContext";
-import TodoItem from "@components/TodoItem";
 
 function TodoList() {
     const { state: todos } = useContext(TodoContext);

@@ -1,8 +1,8 @@
-import TodoItem from ".";
-import { TodoContext } from "../../context/todoContext";
-import { v4 as uuidv4 } from "uuid";
-import { TODO_STATUS } from "../../constants";
 import { fireEvent, render, screen } from "@testing-library/react";
+import { TodoContext } from "context/todoContext";
+import { v4 as uuidv4 } from "uuid";
+import TodoItem from ".";
+import { TODO_STATUS } from "constant";
 
 describe("TodoItem", () => {
     const mockDispatch = jest.fn();

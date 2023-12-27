@@ -1,10 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import AddTodoForm from "./index.jsx";
+import { TodoContext, TodoContextProvider } from "context/todoContext";
 import React, { useContext } from "react";
-import {
-    TodoContext,
-    TodoContextProvider,
-} from "../../context/todoContext.jsx";
+import AddTodoForm from ".";
 
 const TestContextComponent = () => {
     const { state } = useContext(TodoContext);

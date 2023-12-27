@@ -1,7 +1,7 @@
 import { FaRegTrashCan } from "react-icons/fa6";
 import { useContext } from "react";
-import { TodoContext } from "@context/todoContext";
-import { TODO_STATUS } from "@constants/index";
+import { TodoContext } from "context/todoContext";
+import { TODO_STATUS } from "constant";
 
 function TodoItem({ todo }) {
     const { dispatch } = useContext(TodoContext);

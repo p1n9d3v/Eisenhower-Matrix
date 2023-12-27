@@ -1,7 +1,7 @@
+import { TodoContext } from "context/todoContext";
 import { useContext, useState } from "react";
-import { TodoContext } from "@context/todoContext";
 
-function TodoForm() {
+function AddTodoForm() {
     const [text, setText] = useState("");
     const { dispatch } = useContext(TodoContext);
 
@@ -34,4 +34,4 @@ function TodoForm() {
     );
 }
 
-export default TodoForm;
+export default AddTodoForm;

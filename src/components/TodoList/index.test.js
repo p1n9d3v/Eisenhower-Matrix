@@ -1,12 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import TodoList from "./index.jsx";
-import { TodoContext } from "@context/todoContext";
+import { TodoContext } from "context/todoContext";
+import TodoList from ".";
+import { TODO_STATUS } from "constant";
 
 const _mock = [
     {
         id: "1",
         text: "Todo 1",
-        status: "active",
+        status: TODO_STATUS.active,
     },
 ];
 

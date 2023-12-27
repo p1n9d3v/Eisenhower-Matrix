@@ -1,6 +1,6 @@
 import { createContext, useReducer } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { TODO_STATUS } from "@constants/index";
+import { TODO_STATUS } from "../constants";
 export const TodoContext = createContext();
 
 export const TodoContextProvider = ({ children }) => {
@@ -13,7 +13,7 @@ export const TodoContextProvider = ({ children }) => {
                     {
                         id: uuidv4(),
                         text,
-                        status: TODO_STATUS.activate,
+                        status: TODO_STATUS.active,
                     },
                 ];
             }
@@ -26,8 +26,8 @@ export const TodoContextProvider = ({ children }) => {
                         return {
                             ...todo,
                             status: todo.status
-                                ? TODO_STATUS.done
-                                : TODO_STATUS.activate,
+                                ? TODO_STATUS.completed
+                                : TODO_STATUS.active,
                         };
                     }
 

@@ -30,7 +30,7 @@ function TodoItem({ todo }) {
             <input
                 type="checkbox"
                 id="todo"
-                checked={todo.status === TODO_STATUS.done}
+                checked={todo.status === TODO_STATUS.completed}
                 onChange={onUpdate}
             />
             <label htmlFor="todo">{todo.text}</label>

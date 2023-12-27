@@ -9,7 +9,7 @@ describe("TodoItem", () => {
     const mockTodo = {
         id: uuidv4(),
         text: "Todo 1",
-        status: TODO_STATUS.activate,
+        status: TODO_STATUS.active,
     };
 
     const renderComponent = () =>
@@ -38,6 +38,9 @@ describe("TodoItem", () => {
             type: "UPDATE",
             id: mockTodo.id,
         });
+
+        const checkboxAfterClick = screen.getByRole("checkbox");
+        expect(checkboxAfterClick.checked).toEqual(false);
     });
 
     test("delete todo", () => {

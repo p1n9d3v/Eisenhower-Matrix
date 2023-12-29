@@ -1,14 +1,30 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Reset } from "styled-reset";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import Layout from "layout/Layout";
+import Eisenhower from "pages/Eisenhower";
+import "./styles/global.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Layout />,
+        children: [
+            {
+                path: "/",
+                element: <Eisenhower />,
+            },
+        ],
+    },
+]);
 root.render(
     <React.StrictMode>
         <Reset />
-        <App />
+        <RouterProvider router={router} />
     </React.StrictMode>,
 );
 

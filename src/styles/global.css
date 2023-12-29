@@ -1,4 +1,10 @@
 :root {
+    --sidebar-width: 256px;
+    --header-height: 64px;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 #root {

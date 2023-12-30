@@ -1,27 +1,16 @@
 import { FaRegTrashCan } from "react-icons/fa6";
-import { useContext } from "react";
-import { TodoContext } from "context/todoContext";
 import { TODO_STATUS } from "constant";
 
-function TodoItem({ todo }) {
-    const { dispatch } = useContext(TodoContext);
-
-    const onDelete = () => {
-        dispatch({
-            type: "DELETE",
-            id: todo.id,
-        });
-    };
-
-    const onUpdate = () => {
-        dispatch({
-            type: "UPDATE",
-            id: todo.id,
-        });
+function TodoItem({ todo, onToggle, onDelete }) {
+    const onDragStart = (event) => {
+        event.dataTransfer.setData("todo", JSON.stringify(todo));
     };
 
     return (
         <li
+            id={todo.id}
+            draggable="true"
+            onDragStart={onDragStart}
             style={{
                 dispaly: "flex",
             }}
@@ -31,7 +20,7 @@ function TodoItem({ todo }) {
                 type="checkbox"
                 id="todo"
                 checked={todo.status === TODO_STATUS.completed}
-                onChange={onUpdate}
+                onChange={onToggle}
             />
             <label htmlFor="todo">{todo.text}</label>
             <button onClick={onDelete}>

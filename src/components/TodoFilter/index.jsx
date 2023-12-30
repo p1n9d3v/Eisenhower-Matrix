@@ -2,7 +2,9 @@ function TodoFilter({ filters, onFilter }) {
     return (
         <div>
             {filters.map((filter) => (
-                <button onClick={() => onFilter(filter)}>{filter}</button>
+                <button key={filter} onClick={() => onFilter(filter)}>
+                    {filter}
+                </button>
             ))}
         </div>
     );

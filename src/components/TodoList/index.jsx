@@ -1,24 +1,62 @@
 import TodoItem from "components/TodoItem";
 import { TODO_STATUS } from "constant";
-import { TodoContext } from "context/todoContext";
-import { useContext } from "react";
 
-function TodoList({ filter }) {
-    const { state: todos } = useContext(TodoContext);
+function TodoList({ todos, setTodos, filter }) {
+    const toggleStatusTodo = (id) => {
+        setTodos((prev) =>
+            prev.map((todo) => {
+                if (todo.id === id) {
+                    return {
+                        ...todo,
+                        status:
+                            todo.status === TODO_STATUS.active
+                                ? TODO_STATUS.completed
+                                : TODO_STATUS.active,
+                    };
+                }
+
+                return todo;
+            }),
+        );
+    };
+
+    const deleteTodo = (id) => {
+        setTodos((prev) => prev.filter((todo) => todo.id !== id));
+    };
+
+    const filterTodos = (todos) => {
+        switch (filter) {
+            case "all": {
+                return todos;
+            }
+            case "active": {
+                return todos.filter(
+                    (todo) => todo.status === TODO_STATUS.active,
+                );
+            }
+
+            case "completed": {
+                return todos.filter(
+                    (todo) => todo.status === TODO_STATUS.completed,
+                );
+            }
+            default: {
+                throw new Error("Invalid filter");
+            }
+        }
+    };
 
     return (
         <section>
             <ul>
-                {filter === "all" &&
-                    todos.map((todo) => <TodoItem todo={todo} />)}
-                {filter === "active" &&
-                    todos
-                        .filter((todo) => todo.status === TODO_STATUS.active)
-                        .map((todo) => <TodoItem todo={todo} />)}
-                {filter === "completed" &&
-                    todos
-                        .filter((todo) => todo.status === TODO_STATUS.completed)
-                        .map((todo) => <TodoItem todo={todo} />)}
+                {filterTodos(todos).map((todo) => (
+                    <TodoItem
+                        key={todo.id}
+                        todo={todo}
+                        onToggle={() => toggleStatusTodo(todo.id)}
+                        onDelete={() => deleteTodo(todo.id)}
+                    />
+                ))}
             </ul>
         </section>
     );

@@ -1,22 +1,11 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { TodoContext, TodoContextProvider } from "context/todoContext";
-import React, { useContext } from "react";
+import React from "react";
 import AddTodoForm from ".";
 
-const TestContextComponent = () => {
-    const { state } = useContext(TodoContext);
-    return <p data-testid="todo-length">{state.length}</p>;
-};
-const RenderComponent = () => (
-    <TodoContextProvider>
-        <AddTodoForm />
-        <TestContextComponent />
-    </TodoContextProvider>
-);
-
+const addTodo = jest.fn();
 describe("AddTodoForm", () => {
     test("render", () => {
-        render(RenderComponent());
+        render(<AddTodoForm onAddTodo={addTodo} />);
         const inputElement = screen.getByPlaceholderText(
             "Add new todo here...",
         );
@@ -25,7 +14,7 @@ describe("AddTodoForm", () => {
     });
 
     test("add todo", async () => {
-        render(RenderComponent());
+        render(<AddTodoForm onAddTodo={addTodo} />);
         const inputElement = screen.getByPlaceholderText(
             "Add new todo here...",
         );
@@ -35,12 +24,11 @@ describe("AddTodoForm", () => {
         expect(inputElement).toHaveValue("Todo 1");
         fireEvent.click(addButton);
 
-        const todoLengthElement = screen.getByTestId("todo-length");
-        expect(todoLengthElement).toHaveTextContent("1");
+        expect(addTodo).toHaveBeenCalled();
     });
 
     test("empty string", () => {
-        render(RenderComponent());
+        render(<AddTodoForm onAddTodo={addTodo} />);
         const formElement = screen.getByLabelText("add todo");
         const inputElement = screen.getByPlaceholderText(
             "Add new todo here...",
@@ -49,7 +37,6 @@ describe("AddTodoForm", () => {
         fireEvent.change(inputElement, { target: { value: "" } });
         fireEvent.submit(formElement);
 
-        const todoLengthElement = screen.getByTestId("todo-length");
-        expect(todoLengthElement).toHaveTextContent("0");
+        expect(addTodo).not.toHaveBeenCalled();
     });
 });

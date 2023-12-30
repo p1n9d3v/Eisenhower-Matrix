@@ -1,19 +1,14 @@
-import { TodoContext } from "context/todoContext";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
-function AddTodoForm() {
+function AddTodoForm({ onAddTodo }) {
     const [text, setText] = useState("");
-    const { dispatch } = useContext(TodoContext);
 
     const onSubmit = (e) => {
         e.preventDefault();
         const trimText = text.trim();
         if (!trimText) return;
 
-        dispatch({
-            type: "ADD",
-            text: trimText,
-        });
+        onAddTodo(trimText);
         setText("");
     };
 

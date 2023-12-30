@@ -1,7 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import TodoFilter from "components/TodoFilter";
+import { render, screen } from "@testing-library/react";
 import { TODO_STATUS } from "constant";
-import { TodoContext } from "context/todoContext";
 import TodoList from ".";
 
 const _mock = [
@@ -19,40 +17,20 @@ const _mock = [
 
 describe("TodoList", () => {
     test("render list", () => {
-        render(
-            <TodoContext.Provider
-                value={{
-                    state: _mock,
-                    dispatch: jest.fn(),
-                }}
-            >
-                <TodoList />
-            </TodoContext.Provider>,
-        );
+        render(<TodoList todos={_mock} setTodo={jest.fn()} filter={"all"} />);
         const todosElement = screen.queryAllByRole("listitem");
         expect(todosElement).toHaveLength(_mock.length);
     });
 
-    test.each(Object.keys(TODO_STATUS).splice(0, 2))(
-        "filter list",
-        (filter) => {
-            render(
-                <TodoContext.Provider
-                    value={{
-                        state: _mock,
-                        dispatch: jest.fn(),
-                    }}
-                >
-                    <TodoList filter={filter} />
-                </TodoContext.Provider>,
-            );
+    test.each(Object.keys(TODO_STATUS))("filter list", (filter) => {
+        render(<TodoList todos={_mock} setTodo={jest.fn()} filter={filter} />);
 
-            const todosElements = screen.queryAllByRole("listitem");
-            const filterTodos = _mock.filter(
-                (item) => item.status === TODO_STATUS[filter],
-            );
+        const todosElements = screen.queryAllByRole("listitem");
+        const filterTodos = _mock.filter((item) => {
+            if (filter === "all") return true;
+            return item.status === TODO_STATUS[filter];
+        });
 
-            expect(todosElements).toHaveLength(filterTodos.length);
-        },
-    );
+        expect(todosElements).toHaveLength(filterTodos.length);
+    });
 });

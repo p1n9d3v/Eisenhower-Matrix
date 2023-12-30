@@ -3,10 +3,10 @@ import Sidebar from "layout/Sidebar";
 import { Outlet } from "react-router-dom";
 import styles from "./index.module.css";
 
-function Layout({ sidebar }) {
+function Layout() {
     return (
         <div className={styles.container}>
-            <Sidebar>{sidebar}</Sidebar>
+            <Sidebar />
             <div className={styles.content}>
                 <Header />
                 <Outlet />

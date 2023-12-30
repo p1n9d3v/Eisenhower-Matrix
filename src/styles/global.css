@@ -21,3 +21,7 @@ button {
     overflow: visible;
     cursor: pointer;
 }
+
+*::-webkit-scrollbar {
+    display: none;
+}

@@ -1,5 +1,4 @@
 import EisenhowerContainer from "components/EisenhowerContainer";
-import Todos from "components/Todos";
 import styles from "./index.module.css";
 
 const eisenhowerSize = (backgroundColor) => ({
@@ -26,8 +25,6 @@ function Eisenhower() {
                     style={eisenhowerSize("purple")}
                 />
             </div>
-
-            <Todos />
         </div>
     );
 }

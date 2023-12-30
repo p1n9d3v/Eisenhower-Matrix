@@ -1,7 +1,9 @@
 .sidebar {
+    position: relative;
     height: 100%;
     width: var(--sidebar-width);
     border-right: 1px solid black;
     background: #f0f0f0;
     padding: 20px 10px;
+    overflow-y: scroll;
 }

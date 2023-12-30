@@ -30,8 +30,8 @@ function Todos() {
                     filters={FILTERS}
                     onFilter={(filter) => setFilter(filter)}
                 />
-                <TodoList todos={todos} setTodos={setTodos} filter={filter} />
                 <AddTodoForm onAddTodo={onAddTodo} />
+                <TodoList todos={todos} setTodos={setTodos} filter={filter} />
             </div>
         </div>
     );

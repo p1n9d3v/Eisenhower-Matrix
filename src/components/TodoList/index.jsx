@@ -1,5 +1,6 @@
 import TodoItem from "components/TodoItem";
 import { TODO_STATUS } from "constant";
+import styles from "./index.module.css";
 
 function TodoList({ todos, setTodos, filter }) {
     const toggleStatusTodo = (id) => {
@@ -48,7 +49,7 @@ function TodoList({ todos, setTodos, filter }) {
 
     return (
         <section>
-            <ul>
+            <ul className={styles.container}>
                 {filterTodos(todos).map((todo) => (
                     <TodoItem
                         key={todo.id}

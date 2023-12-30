@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "layout/Layout";
 import Eisenhower from "pages/Eisenhower";
 import "./styles/global.css";
+import { TodoContextProvider } from "context/todoContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
@@ -24,7 +25,9 @@ const router = createBrowserRouter([
 root.render(
     <>
         <Reset />
-        <RouterProvider router={router} />
+        <TodoContextProvider>
+            <RouterProvider router={router} />
+        </TodoContextProvider>
     </>,
 );
 

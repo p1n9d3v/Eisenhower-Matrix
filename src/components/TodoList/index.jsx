@@ -1,43 +1,11 @@
 import TodoItem from "components/TodoItem";
 import { TODO_STATUS } from "constant";
+import { TodoContext } from "context/todoContext";
+import { useContext } from "react";
 import styles from "./index.module.css";
 
-function TodoList({ todos, setTodos, filter }) {
-    const toggleStatusTodo = (id) => {
-        setTodos((prev) =>
-            prev.map((todo) => {
-                if (todo.id === id) {
-                    return {
-                        ...todo,
-                        status:
-                            todo.status === TODO_STATUS.active
-                                ? TODO_STATUS.completed
-                                : TODO_STATUS.active,
-                    };
-                }
-
-                return todo;
-            }),
-        );
-    };
-
-    const deleteTodo = (id) => {
-        setTodos((prev) => prev.filter((todo) => todo.id !== id));
-    };
-
-    const updateTodo = (id, text) => {
-        setTodos((prev) =>
-            prev.map((todo) => {
-                if (todo.id === id) {
-                    return {
-                        ...todo,
-                        text,
-                    };
-                }
-                return todo;
-            }),
-        );
-    };
+function TodoList({ filter }) {
+    const { state: todos } = useContext(TodoContext);
 
     const filterTodos = (todos) => {
         switch (filter) {
@@ -65,13 +33,7 @@ function TodoList({ todos, setTodos, filter }) {
         <section>
             <ul className={styles.container}>
                 {filterTodos(todos).map((todo) => (
-                    <TodoItem
-                        key={todo.id}
-                        todo={todo}
-                        onToggle={() => toggleStatusTodo(todo.id)}
-                        onDelete={() => deleteTodo(todo.id)}
-                        onUpdate={(text) => updateTodo(todo.id, text)}
-                    />
+                    <TodoItem key={todo.id} todo={todo} />
                 ))}
             </ul>
         </section>

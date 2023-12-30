@@ -8,6 +8,9 @@ function TodoFilter({ filters, onFilter }) {
                     data-filter={filter}
                     onClick={() => onFilter(filter)}
                     className={styles.button}
+                    style={{
+                        textTransform: "capitalize",
+                    }}
                 >
                     {filter}
                 </button>

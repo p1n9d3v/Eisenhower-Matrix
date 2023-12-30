@@ -3,15 +3,17 @@ import { TODO_STATUS } from "constant";
 import styles from "./index.module.css";
 import { RiCheckboxCircleLine } from "react-icons/ri";
 import { IoMdMore } from "react-icons/io";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { SlPencil } from "react-icons/sl";
+import { TodoContext } from "context/todoContext";
 
-function TodoItem({ todo, onToggle, onDelete, onUpdate }) {
+function TodoItem({ todo }) {
     const [openMore, setOpenMore] = useState(false);
     const [text, setText] = useState(todo.text);
     const [update, setUpdate] = useState(false);
 
+    const { dispatch } = useContext(TodoContext);
     const activeRef = useRef();
     const inputRef = useRef();
 
@@ -26,8 +28,32 @@ function TodoItem({ todo, onToggle, onDelete, onUpdate }) {
 
     const onUpdateSubmit = (event) => {
         event.preventDefault();
-        onUpdate(text);
+        dispatch({
+            type: "UPDATE",
+            payload: {
+                id: todo.id,
+                text: text.trim(),
+            },
+        });
         setUpdate(false);
+    };
+
+    const onToggleStatus = () => {
+        dispatch({
+            type: "TOGGLE",
+            payload: {
+                id: todo.id,
+            },
+        });
+    };
+
+    const onDelete = () => {
+        dispatch({
+            type: "DELETE",
+            payload: {
+                id: todo.id,
+            },
+        });
     };
 
     useEffect(() => {
@@ -35,6 +61,7 @@ function TodoItem({ todo, onToggle, onDelete, onUpdate }) {
             inputRef.current.focus();
         }
     }, [update, inputRef]);
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (
@@ -63,7 +90,7 @@ function TodoItem({ todo, onToggle, onDelete, onUpdate }) {
                 type="checkbox"
                 id={todo.id}
                 checked={todo.status === TODO_STATUS.completed}
-                onChange={onToggle}
+                onChange={onToggleStatus}
             />
             <label htmlFor={todo.id}>
                 <RiCheckboxCircleLine className={styles.checkbox} />

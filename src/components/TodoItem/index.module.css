@@ -7,6 +7,8 @@
     border-radius: 10px;
     background: #fff;
     gap: 10px;
+    opacity: 0;
+    animation: show 0.8s forwards;
 }
 
 .container input[type="checkbox"] {
@@ -39,7 +41,7 @@ input[type="checkbox"]:checked + label svg * {
     margin: 3px;
     width: 24px;
     height: 24px;
-    animation: more-show 0.8s forwards;
+    animation: rotate-show 1s forwards;
 }
 
 .action {
@@ -64,7 +66,7 @@ input[type="checkbox"]:checked + label svg * {
     background: #fff;
     border: 1px solid gray;
     opacity: 0;
-    animation: action-show 1s forwards;
+    animation: show 1s forwards;
 }
 .action button:hover {
     scale: 1.2;
@@ -78,7 +80,7 @@ input[type="checkbox"]:checked + label svg * {
     animation-delay: 0.2s;
 }
 
-@keyframes more-show {
+@keyframes rotate-show {
     0% {
         opacity: 0;
         transform: rotate(0deg);
@@ -91,7 +93,20 @@ input[type="checkbox"]:checked + label svg * {
         transform: rotate(180deg);
     }
 }
-@keyframes action-show {
+@keyframes rotate-hidden {
+    0% {
+        opacity: 1;
+        transform: rotate(0deg);
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(180deg);
+    }
+}
+@keyframes show {
     from {
         opacity: 0;
     }
@@ -99,7 +114,7 @@ input[type="checkbox"]:checked + label svg * {
         opacity: 1;
     }
 }
-@keyframes action-hidden {
+@keyframes hidden {
     from {
         opacity: 1;
     }

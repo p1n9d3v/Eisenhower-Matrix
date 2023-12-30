@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+.button {
+    padding: 8px 16px;
+    border-radius: 5px;
+    color: white;
+}
+
+.button[data-filter="all"] {
+    background: #007bff;
+}
+.button[data-filter="active"] {
+    background: #ffc107;
+}
+.button[data-filter="completed"] {
+    background: #dc3545;
+}

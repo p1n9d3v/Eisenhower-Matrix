@@ -5,6 +5,7 @@ import { TODO_STATUS } from "constant";
 import { useState } from "react";
 import styles from "./index.module.css";
 import { v4 as uuidv4 } from "uuid";
+import Space from "components/ui/Space";
 
 const FILTERS = Object.keys(TODO_STATUS);
 
@@ -30,7 +31,9 @@ function Todos() {
                     filters={FILTERS}
                     onFilter={(filter) => setFilter(filter)}
                 />
+                <Space height={10} />
                 <AddTodoForm onAddTodo={onAddTodo} />
+                <Space height={10} />
                 <TodoList todos={todos} setTodos={setTodos} filter={filter} />
             </div>
         </div>

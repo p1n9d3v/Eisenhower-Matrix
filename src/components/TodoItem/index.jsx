@@ -54,10 +54,7 @@ function TodoItem({ todo, onToggle, onDelete }) {
             </div>
             <button onClick={() => setOpenMore(!openMore)}>
                 {openMore ? (
-                    <IoCloseSharp
-                        className={styles.more}
-                        data-status={!openMore}
-                    />
+                    <IoCloseSharp className={styles.more} />
                 ) : (
                     <IoMdMore className={styles.more} />
                 )}

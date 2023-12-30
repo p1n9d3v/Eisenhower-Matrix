@@ -6,16 +6,35 @@ import { IoMdMore } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { SlPencil } from "react-icons/sl";
-import { FaPlus } from "react-icons/fa6";
 
-function TodoItem({ todo, onToggle, onDelete }) {
+function TodoItem({ todo, onToggle, onDelete, onUpdate }) {
     const [openMore, setOpenMore] = useState(false);
+    const [text, setText] = useState(todo.text);
+    const [update, setUpdate] = useState(false);
+
     const activeRef = useRef();
+    const inputRef = useRef();
 
     const onDragStart = (event) => {
         event.dataTransfer.setData("todo", JSON.stringify(todo));
     };
 
+    const onEnableInput = () => {
+        setOpenMore(false);
+        setUpdate(true);
+    };
+
+    const onUpdateSubmit = (event) => {
+        event.preventDefault();
+        onUpdate(text);
+        setUpdate(false);
+    };
+
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [update, inputRef]);
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (
@@ -50,7 +69,23 @@ function TodoItem({ todo, onToggle, onDelete }) {
                 <RiCheckboxCircleLine className={styles.checkbox} />
             </label>
             <div className={styles.text}>
-                <label htmlFor={todo.id}>{todo.text}</label>
+                <form onSubmit={onUpdateSubmit}>
+                    {update ? (
+                        <>
+                            <input
+                                ref={inputRef}
+                                value={text}
+                                disabled={!update}
+                                onChange={(event) =>
+                                    setText(event.target.value)
+                                }
+                            />
+                            <button type="submit" hidden />
+                        </>
+                    ) : (
+                        <label htmlFor={todo.id}>{todo.text}</label>
+                    )}
+                </form>
             </div>
             <button onClick={() => setOpenMore(!openMore)}>
                 {openMore ? (
@@ -61,7 +96,7 @@ function TodoItem({ todo, onToggle, onDelete }) {
             </button>
             {openMore && (
                 <div ref={activeRef} className={styles.action}>
-                    <button>
+                    <button onClick={onEnableInput}>
                         <SlPencil />
                     </button>
                     <button onClick={onDelete}>

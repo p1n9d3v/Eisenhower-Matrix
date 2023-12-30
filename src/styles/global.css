@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;800&display=swap");
 :root {
     --sidebar-width: 256px;
     --header-height: 64px;
@@ -5,6 +6,7 @@
 
 * {
     box-sizing: border-box;
+    font-family: "Noto Sans KR", sans-serif !important;
 }
 
 #root {

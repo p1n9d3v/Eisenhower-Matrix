@@ -25,6 +25,20 @@ function TodoList({ todos, setTodos, filter }) {
         setTodos((prev) => prev.filter((todo) => todo.id !== id));
     };
 
+    const updateTodo = (id, text) => {
+        setTodos((prev) =>
+            prev.map((todo) => {
+                if (todo.id === id) {
+                    return {
+                        ...todo,
+                        text,
+                    };
+                }
+                return todo;
+            }),
+        );
+    };
+
     const filterTodos = (todos) => {
         switch (filter) {
             case "all": {
@@ -56,6 +70,7 @@ function TodoList({ todos, setTodos, filter }) {
                         todo={todo}
                         onToggle={() => toggleStatusTodo(todo.id)}
                         onDelete={() => deleteTodo(todo.id)}
+                        onUpdate={(text) => updateTodo(todo.id, text)}
                     />
                 ))}
             </ul>

@@ -34,13 +34,7 @@ function EisenhowerContainer({ title, style }) {
     return (
         <div className={styles.container} style={style}>
             <h1>{title}</h1>
-            <div
-                ref={ref}
-                style={{
-                    width: "100%",
-                    height: "100%",
-                }}
-            >
+            <div ref={ref}>
                 <ul>
                     {todos.map((todo, index) => (
                         <li key={`${index}-${todo.id}`}>{todo.text}</li>

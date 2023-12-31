@@ -96,10 +96,11 @@ function TodoItem({ todo }) {
                 <RiCheckboxCircleLine className={styles.checkbox} />
             </label>
             <div className={styles.text}>
-                <form onSubmit={onUpdateSubmit}>
+                <form onSubmit={onUpdateSubmit} aria-label="edit todo text">
                     {update ? (
                         <>
                             <input
+                                type="text"
                                 ref={inputRef}
                                 value={text}
                                 disabled={!update}
@@ -114,7 +115,7 @@ function TodoItem({ todo }) {
                     )}
                 </form>
             </div>
-            <button onClick={() => setOpenMore(!openMore)}>
+            <button onClick={() => setOpenMore(!openMore)} aria-label="more">
                 {openMore ? (
                     <IoCloseSharp className={styles.more} />
                 ) : (
@@ -123,10 +124,10 @@ function TodoItem({ todo }) {
             </button>
             {openMore && (
                 <div ref={activeRef} className={styles.action}>
-                    <button onClick={onEnableInput}>
+                    <button onClick={onEnableInput} aria-label="edit">
                         <SlPencil />
                     </button>
-                    <button onClick={onDelete}>
+                    <button onClick={onDelete} aria-label="delete">
                         <FaRegTrashCan />
                     </button>
                 </div>

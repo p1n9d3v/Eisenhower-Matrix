@@ -5,10 +5,10 @@ function Eisenhower() {
     return (
         <div className={styles.container}>
             <div className={styles.eisenhower}>
-                <EisenhowerContainer title={"Do"} />
-                <EisenhowerContainer title={"Schedule"} />
-                <EisenhowerContainer title={"Delegate"} />
-                <EisenhowerContainer title={"Delete"} />
+                <EisenhowerContainer title={"do"} />
+                <EisenhowerContainer title={"schedule"} />
+                <EisenhowerContainer title={"delegate"} />
+                <EisenhowerContainer title={"delete"} />
             </div>
         </div>
     );

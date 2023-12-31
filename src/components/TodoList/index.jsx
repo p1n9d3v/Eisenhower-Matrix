@@ -1,25 +1,28 @@
 import TodoItem from "components/TodoItem";
 import { TODO_STATUS } from "constant";
-import { TodoContext } from "context/todoContext";
+import { EisenContext } from "context/eisenContext";
 import { useContext } from "react";
 import styles from "./index.module.css";
 
-function TodoList({ filter }) {
-    const { state: todos } = useContext(TodoContext);
+function TodoList({ filter, category = "todo" }) {
+    const { state } = useContext(EisenContext);
+    const todos = Object.values(state).filter(
+        (todo) => todo.category === category,
+    );
 
     const filterTodos = (todos) => {
         switch (filter) {
             case "all": {
-                return todos;
+                return Object.values(todos);
             }
             case "active": {
-                return todos.filter(
+                return Object.values(todos).filter(
                     (todo) => todo.status === TODO_STATUS.active,
                 );
             }
 
             case "completed": {
-                return todos.filter(
+                return Object.values(todos).filter(
                     (todo) => todo.status === TODO_STATUS.completed,
                 );
             }

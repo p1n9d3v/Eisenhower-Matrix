@@ -1,26 +1,26 @@
 import TodoItem from "components/TodoItem";
 import Space from "components/ui/Space";
-import { TodoContext } from "context/todoContext";
-import { useContext, useEffect, useRef, useState } from "react";
+import { EisenContext } from "context/eisenContext";
+import { useContext, useEffect, useRef } from "react";
 import styles from "./index.module.css";
 
 function EisenhowerContainer({ title }) {
-    const [eisenTodo, setEisenTodo] = useState([]);
-    const { dispatch } = useContext(TodoContext);
+    const { state, dispatch } = useContext(EisenContext);
 
     const ref = useRef();
 
     const onDropOver = (event) => {
         event.preventDefault();
     };
+
     const onDrop = (event) => {
-        const todo = JSON.parse(event.dataTransfer.getData("todo"));
-        setEisenTodo((prev) => [...prev, todo]);
+        const id = event.dataTransfer.getData("id");
         dispatch({
-            type: "DELETE",
-            payload: {
-                id: todo.id,
+            type: "MOVE",
+            todo: {
+                id,
             },
+            category: title,
         });
     };
 
@@ -46,9 +46,11 @@ function EisenhowerContainer({ title }) {
             <Space height={8} />
             <div className={styles.content}>
                 <ul>
-                    {eisenTodo.map((todo) => (
-                        <TodoItem key={todo.id} todo={todo} />
-                    ))}
+                    {Object.values(state)
+                        .filter((state) => state.category === title)
+                        .map((todo) => (
+                            <TodoItem key={todo.id} todo={todo} />
+                        ))}
                 </ul>
             </div>
         </div>

@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
 import styles from "./index.module.css";
 import { MdPlaylistAdd } from "react-icons/md";
-import { TodoContext } from "context/todoContext";
+import { EisenContext } from "context/eisenContext";
 
 function AddTodoForm() {
     const [text, setText] = useState("");
-    const { dispatch } = useContext(TodoContext);
+    const { dispatch } = useContext(EisenContext);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -14,7 +14,7 @@ function AddTodoForm() {
 
         dispatch({
             type: "ADD",
-            payload: {
+            todo: {
                 text: trimText,
             },
         });

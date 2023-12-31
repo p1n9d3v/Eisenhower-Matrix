@@ -6,19 +6,19 @@ import { IoMdMore } from "react-icons/io";
 import { useContext, useEffect, useRef, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { SlPencil } from "react-icons/sl";
-import { TodoContext } from "context/todoContext";
+import { EisenContext } from "context/eisenContext";
 
 function TodoItem({ todo }) {
     const [openMore, setOpenMore] = useState(false);
     const [text, setText] = useState(todo.text);
     const [update, setUpdate] = useState(false);
 
-    const { dispatch } = useContext(TodoContext);
+    const { dispatch } = useContext(EisenContext);
     const activeRef = useRef();
     const inputRef = useRef();
 
     const onDragStart = (event) => {
-        event.dataTransfer.setData("todo", JSON.stringify(todo));
+        event.dataTransfer.setData("id", todo.id);
     };
 
     const onEnableInput = () => {
@@ -30,7 +30,7 @@ function TodoItem({ todo }) {
         event.preventDefault();
         dispatch({
             type: "UPDATE",
-            payload: {
+            todo: {
                 id: todo.id,
                 text: text.trim(),
             },
@@ -40,8 +40,8 @@ function TodoItem({ todo }) {
 
     const onToggleStatus = () => {
         dispatch({
-            type: "TOGGLE",
-            payload: {
+            type: "STATUS",
+            todo: {
                 id: todo.id,
             },
         });
@@ -50,7 +50,7 @@ function TodoItem({ todo }) {
     const onDelete = () => {
         dispatch({
             type: "DELETE",
-            payload: {
+            todo: {
                 id: todo.id,
             },
         });

@@ -5,16 +5,16 @@
     padding: 8px 16px;
     overflow-y: scroll;
 }
-.container[data-title="Do"] {
+.container[data-title="do"] {
     border: 1px solid #f44336;
 }
-.container[data-title="Schedule"] {
+.container[data-title="schedule"] {
     border: 1px solid #2196f3;
 }
-.container[data-title="Delegate"] {
+.container[data-title="delegate"] {
     border: 1px solid #ffeb3b;
 }
-.container[data-title="Delete"] {
+.container[data-title="delete"] {
     border: 1px solid #4caf50;
 }
 .title {
@@ -23,6 +23,7 @@
     background: #fff;
     font-size: 16px;
     font-weight: 600;
+    text-transform: capitalize;
 }
 .content ul {
     display: flex;

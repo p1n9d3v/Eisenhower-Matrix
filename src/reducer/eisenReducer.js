@@ -2,7 +2,7 @@ import { TODO_STATUS } from "constant";
 import { v4 as uuidv4 } from "uuid";
 
 const eisenReducer = (state, action) => {
-    const { category, todo } = action;
+    const { todo, intersectId } = action;
 
     switch (action.type) {
         case "ADD": {
@@ -18,13 +18,27 @@ const eisenReducer = (state, action) => {
             };
         }
         case "MOVE": {
-            return {
-                ...state,
-                [todo.id]: {
-                    ...state[todo.id],
-                    category,
-                },
-            };
+            const stateArr = Object.values(state);
+            const todoIndex = stateArr.findIndex((t) => t.id === todo.id);
+            let intersectIndex = stateArr.findIndex(
+                (t) => t.id === intersectId,
+            );
+            if (intersectIndex === -1) intersectIndex = stateArr.length;
+            if (todoIndex > intersectIndex) {
+                stateArr.splice(todoIndex, 1);
+                stateArr.splice(intersectIndex, 0, todo);
+            } else {
+                stateArr.splice(todoIndex, 1);
+                stateArr.splice(intersectIndex, 0, todo);
+            }
+
+            return stateArr.reduce(
+                (acc, cur) => ({
+                    ...acc,
+                    [cur.id]: cur,
+                }),
+                {},
+            );
         }
         case "DELETE": {
             return Object.values(state).reduce((acc, cur) => {

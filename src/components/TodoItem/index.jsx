@@ -8,7 +8,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { SlPencil } from "react-icons/sl";
 import { EisenContext } from "context/eisenContext";
 
-function TodoItem({ todo }) {
+function TodoItem({ todo, onDragEnter }) {
     const [openMore, setOpenMore] = useState(false);
     const [text, setText] = useState(todo.text);
     const [update, setUpdate] = useState(false);
@@ -18,7 +18,8 @@ function TodoItem({ todo }) {
     const inputRef = useRef();
 
     const onDragStart = (event) => {
-        event.dataTransfer.setData("id", todo.id);
+        event.dataTransfer.effectAllowed = "move";
+        event.dataTransfer.setData("id", JSON.stringify(todo));
     };
 
     const onEnableInput = () => {
@@ -83,6 +84,7 @@ function TodoItem({ todo }) {
         <li
             draggable="true"
             onDragStart={onDragStart}
+            onDragEnter={onDragEnter}
             className={styles.container}
             aria-label="todo item"
         >

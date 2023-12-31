@@ -51,7 +51,6 @@ input[type="checkbox"]:checked + label svg * {
     margin: 3px;
     width: 24px;
     height: 24px;
-    animation: rotate-show 1s forwards;
 }
 
 .action {
@@ -90,32 +89,6 @@ input[type="checkbox"]:checked + label svg * {
     animation-delay: 0.2s;
 }
 
-@keyframes rotate-show {
-    0% {
-        opacity: 0;
-        transform: rotate(0deg);
-    }
-    50% {
-        opacity: 0.7;
-    }
-    100% {
-        opacity: 1;
-        transform: rotate(180deg);
-    }
-}
-@keyframes rotate-hidden {
-    0% {
-        opacity: 1;
-        transform: rotate(0deg);
-    }
-    50% {
-        opacity: 0.7;
-    }
-    100% {
-        opacity: 0;
-        transform: rotate(180deg);
-    }
-}
 @keyframes show {
     from {
         opacity: 0;

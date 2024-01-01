@@ -8,6 +8,7 @@
     background: #fff;
     gap: 10px;
     opacity: 0;
+    border: 1px solid black;
     animation: show 0.8s forwards;
 }
 
@@ -29,22 +30,23 @@ input[type="checkbox"]:checked + label svg * {
 
 .text {
     flex: 1;
-    margin-top: 7.5px;
     word-break: break-word;
+}
+.text form {
+    position: relative;
+    top: 1.5px;
+    left: -2px;
 }
 .text input {
     width: 100%;
     font-size: 16px;
-    position: relative;
-    top: -8px;
 }
 .text label {
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 16px;
     position: relative;
-    top: -3px;
-    left: 2px;
+    top: 6px;
 }
 
 .more {

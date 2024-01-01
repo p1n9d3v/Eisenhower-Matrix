@@ -11,7 +11,7 @@ function EisenhowerContainer({ title }) {
     const dropZoneRef = useRef();
     const contentZoneRef = useRef();
 
-    const onDragEnter = (id) => {
+    const onDragEnter = (event, id) => {
         setIntersectId(id);
     };
 
@@ -81,7 +81,9 @@ function EisenhowerContainer({ title }) {
                             <TodoItem
                                 key={todo.id}
                                 todo={todo}
-                                onDragEnter={(_) => onDragEnter(todo.id)}
+                                onDragEnter={(event, _) =>
+                                    onDragEnter(event, todo.id)
+                                }
                             />
                         ))}
                 </ul>

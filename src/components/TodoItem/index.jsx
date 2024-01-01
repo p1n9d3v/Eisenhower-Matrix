@@ -14,6 +14,7 @@ function TodoItem({ todo, onDragEnter }) {
     const [update, setUpdate] = useState(false);
 
     const { dispatch } = useContext(EisenContext);
+    const itemRef = useRef();
     const activeRef = useRef();
     const inputRef = useRef();
 
@@ -82,6 +83,8 @@ function TodoItem({ todo, onDragEnter }) {
 
     return (
         <li
+            ref={itemRef}
+            id={todo.id}
             draggable="true"
             onDragStart={onDragStart}
             onDragEnter={onDragEnter}
@@ -92,30 +95,27 @@ function TodoItem({ todo, onDragEnter }) {
                 type="checkbox"
                 id={todo.id}
                 checked={todo.status === TODO_STATUS.completed}
-                onChange={onToggleStatus}
             />
-            <label htmlFor={todo.id}>
+            <label htmlFor={todo.id} onClick={onToggleStatus}>
                 <RiCheckboxCircleLine className={styles.checkbox} />
             </label>
             <div className={styles.text}>
-                <form onSubmit={onUpdateSubmit} aria-label="edit todo text">
-                    {update ? (
-                        <>
-                            <input
-                                type="text"
-                                ref={inputRef}
-                                value={text}
-                                disabled={!update}
-                                onChange={(event) =>
-                                    setText(event.target.value)
-                                }
-                            />
-                            <button type="submit" hidden />
-                        </>
-                    ) : (
-                        <label htmlFor={todo.id}>{todo.text}</label>
-                    )}
-                </form>
+                {update ? (
+                    <form onSubmit={onUpdateSubmit} aria-label="edit todo text">
+                        <input
+                            type="text"
+                            ref={inputRef}
+                            value={text}
+                            disabled={!update}
+                            onChange={(event) => setText(event.target.value)}
+                        />
+                        <button type="submit" hidden />
+                    </form>
+                ) : (
+                    <label onClick={onToggleStatus} htmlFor={todo.id}>
+                        {todo.text}
+                    </label>
+                )}
             </div>
             <button onClick={() => setOpenMore(!openMore)} aria-label="more">
                 {openMore ? (

@@ -27,10 +27,6 @@ button {
     justify-content: center;
 }
 
-*::-webkit-scrollbar {
-    display: none;
-}
-
 /* input 기본 스타일 초기화 */
 input {
     -webkit-appearance: none;

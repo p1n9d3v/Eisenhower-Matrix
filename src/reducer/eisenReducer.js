@@ -82,6 +82,10 @@ const eisenReducer = (state, action) => {
                                 cur.status === TODO_STATUS.active
                                     ? TODO_STATUS.completed
                                     : TODO_STATUS.active,
+                            category:
+                                cur.status === TODO_STATUS.active // active일 때 누르므로
+                                    ? "delete"
+                                    : cur.category,
                         },
                     };
                 }

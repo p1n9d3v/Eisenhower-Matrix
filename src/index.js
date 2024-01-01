@@ -2,32 +2,24 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { Reset } from "styled-reset";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Layout from "layout/Layout";
 import Eisenhower from "pages/Eisenhower";
 import "./styles/global.css";
 import { EisenContextProvider } from "context/eisenContext";
+import { FilterContextProvider } from "context/filterContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Layout />,
-        children: [
-            {
-                path: "/",
-                element: <Eisenhower />,
-            },
-        ],
-    },
-]);
 root.render(
     <>
         <Reset />
-        <EisenContextProvider>
-            <RouterProvider router={router} />
-        </EisenContextProvider>
+        <FilterContextProvider>
+            <EisenContextProvider>
+                <Layout>
+                    <Eisenhower />
+                </Layout>
+            </EisenContextProvider>
+        </FilterContextProvider>
     </>,
 );
 

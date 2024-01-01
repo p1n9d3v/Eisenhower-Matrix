@@ -1,12 +1,22 @@
+import { TODO_STATUS } from "constant";
+import { FilterContext } from "context/filterContext";
+import { useContext } from "react";
 import styles from "./index.module.css";
-function TodoFilter({ filters, onFilter }) {
+
+function TodoFilter() {
+    const { dispatch } = useContext(FilterContext);
+
     return (
         <div className={styles.container}>
-            {filters.map((filter) => (
+            {Object.keys(TODO_STATUS).map((filter) => (
                 <button
                     key={filter}
                     data-filter={filter}
-                    onClick={() => onFilter(filter)}
+                    onClick={() => {
+                        dispatch({
+                            type: filter,
+                        });
+                    }}
                     className={styles.button}
                     style={{
                         textTransform: "capitalize",

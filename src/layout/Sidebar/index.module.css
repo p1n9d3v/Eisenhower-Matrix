@@ -2,7 +2,7 @@
     position: relative;
     height: 100%;
     width: var(--sidebar-width);
-    border-right: 1px solid black;
+    border-right: 1px solid #9ca3af;
     padding: 20px 10px;
     overflow-y: scroll;
 }

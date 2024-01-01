@@ -19,7 +19,6 @@ function TodoItem({ todo, onDragEnter }) {
     const inputRef = useRef();
 
     const onDragStart = (event) => {
-        event.dataTransfer.effectAllowed = "move";
         event.dataTransfer.setData("id", JSON.stringify(todo));
     };
 

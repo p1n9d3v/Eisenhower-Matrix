@@ -1,17 +1,21 @@
 import TodoItem from "components/TodoItem";
 import Space from "components/ui/Space";
 import { EisenContext } from "context/eisenContext";
+import { FilterContext } from "context/filterContext";
 import { useContext, useEffect, useRef, useState } from "react";
+import { filterTodos } from "utils";
 import styles from "./index.module.css";
 
 function EisenhowerContainer({ title }) {
     const { state, dispatch } = useContext(EisenContext);
+    const { state: filter } = useContext(FilterContext);
+
     const [intersectId, setIntersectId] = useState("");
 
     const dropZoneRef = useRef();
     const contentZoneRef = useRef();
 
-    const onDragEnter = (event, id) => {
+    const onDragEnter = (id) => {
         setIntersectId(id);
     };
 
@@ -75,15 +79,13 @@ function EisenhowerContainer({ title }) {
             <Space height={8} />
             <div className={styles.content}>
                 <ul ref={contentZoneRef}>
-                    {Object.values(state)
+                    {filterTodos(Object.values(state), filter)
                         .filter((todo) => todo.category === title)
                         .map((todo) => (
                             <TodoItem
                                 key={todo.id}
                                 todo={todo}
-                                onDragEnter={(event, _) =>
-                                    onDragEnter(event, todo.id)
-                                }
+                                onDragEnter={(_) => onDragEnter(todo.id)}
                             />
                         ))}
                 </ul>

@@ -7,7 +7,7 @@ const eisenReducer = (state, action) => {
     switch (action.type) {
         case "ADD": {
             const id = uuidv4();
-            return {
+            const result = {
                 ...state,
                 [id]: {
                     id,
@@ -16,6 +16,8 @@ const eisenReducer = (state, action) => {
                     category: "todo",
                 },
             };
+
+            return result;
         }
         case "MOVE": {
             const stateArr = Object.values(state);

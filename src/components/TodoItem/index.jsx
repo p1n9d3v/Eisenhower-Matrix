@@ -94,6 +94,7 @@ function TodoItem({ todo, onDragEnter }) {
                 type="checkbox"
                 id={todo.id}
                 checked={todo.status === TODO_STATUS.completed}
+                onChange={onToggleStatus}
             />
             <label htmlFor={todo.id} onClick={onToggleStatus}>
                 <RiCheckboxCircleLine className={styles.checkbox} />

@@ -1,11 +1,24 @@
-import { createContext, useReducer } from "react";
+import {
+    createContext,
+    useCallback,
+    useEffect,
+    useLayoutEffect,
+    useReducer,
+} from "react";
 import eisenReducer from "reducer/eisenReducer";
 
 export const EisenContext = createContext();
 
-const initialState = {};
 export const EisenContextProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(eisenReducer, initialState);
+    const [state, dispatch] = useReducer(
+        eisenReducer,
+        JSON.parse(localStorage.getItem("todos") ?? "{}"),
+    );
+
+    useEffect(() => {
+        localStorage.setItem("todos", JSON.stringify(state));
+    }, [state]);
+
     return (
         <EisenContext.Provider
             value={{

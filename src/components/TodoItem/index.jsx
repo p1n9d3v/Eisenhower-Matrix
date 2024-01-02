@@ -89,6 +89,10 @@ function TodoItem({ todo, onDragEnter }) {
             onDragEnter={onDragEnter}
             className={styles.container}
             aria-label="todo item"
+            style={{
+                backgroundColor:
+                    todo.status === TODO_STATUS.completed ? "#f1f1f1" : "#fff",
+            }}
         >
             <input
                 type="checkbox"

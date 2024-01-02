@@ -2,7 +2,10 @@
     position: relative;
     height: 100%;
     width: var(--sidebar-width);
-    border-right: 1px solid #9ca3af;
     padding: 20px 10px;
+    box-shadow:
+        10px 0px 15px -5px rgba(0, 0, 0, 0.15),
+        -10px 0px 15px -5px rgba(0, 0, 0, 0.15);
     overflow-y: scroll;
+    background: #fff;
 }

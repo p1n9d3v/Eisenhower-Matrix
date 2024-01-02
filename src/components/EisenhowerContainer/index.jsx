@@ -76,7 +76,7 @@ function EisenhowerContainer({ title }) {
     return (
         <div ref={dropZoneRef} className={styles.container} data-title={title}>
             <div className={styles.title}>{title}</div>
-            <Space height={8} />
+            <Space height={10} />
             <div className={styles.content}>
                 <ul ref={contentZoneRef}>
                     {filterTodos(Object.values(state), filter)

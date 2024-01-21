@@ -2,7 +2,7 @@
     "name": "todo",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://p1n9d3v.github.io/Eisenhower-Matrix/",
+    "homepage": "https://p1n9d3v.github.io/eisenhower-matrix/",
     "dependencies": {
         "@testing-library/jest-dom": "^5.17.0",
         "@testing-library/react": "^14.1.2",
